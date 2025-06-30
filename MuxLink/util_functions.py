@@ -137,7 +137,7 @@ def subgraph_extraction_labeling(ind, A, h=1,node_information=None ):
     features = node_information[nodes]
     # construct nx graph
 
-    g = nx.from_scipy_sparse_matrix(subgraph)
+    g = nx.from_scipy_sparse_array(subgraph)
     # remove link between target nodes
     if g.has_edge(0, 1):
         g.remove_edge(0, 1)

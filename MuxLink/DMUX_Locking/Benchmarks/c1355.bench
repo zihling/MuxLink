@@ -1,3 +1,21 @@
+#   combinational logic example "c1355"
+# -------------------------------------------------------------
+# 
+# 
+#   total number of lines in the netlist ..............  1355
+#   simplistically reduced equivalent fault set size =   1574
+#         lines from primary input  gates .......    41
+#         lines from primary output gates .......    32
+#         lines from interior gate outputs ......   514
+#         lines from **   259 ** fanout stems ...   768
+# 
+#         avg_fanin  =  1.95,     max_fanin  =  5
+#         avg_fanout =  2.97,     max_fanout = 12
+# 
+# 
+# 
+# 
+# 
 INPUT(G1gat)
 INPUT(G8gat)
 INPUT(G15gat)
