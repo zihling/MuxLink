@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # === Configuration ===
-CIRCUIT="s349"
-KEY_SIZE=32
+CIRCUIT="c1355"
+KEY_SIZE=1
 HOP=3
 THRESHOLD=0.01
 
@@ -43,6 +43,6 @@ python Main.py \
 
 # === Step 3: Parse Predictions ===
 echo "[Step 3] Parsing predictions with threshold=$THRESHOLD..."
-perl break_DMUX.pl "${CIRCUIT}_K${KEY_SIZE}_ISO" "$THRESHOLD" "$HOP"
+perl break_Iso.pl "${CIRCUIT}_K${KEY_SIZE}_ISO" "$THRESHOLD" "$HOP"
 
 echo "[Done] Pipeline completed for ${CIRCUIT} with key size ${KEY_SIZE}"

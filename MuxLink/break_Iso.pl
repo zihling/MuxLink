@@ -28,6 +28,10 @@ my $line= $_;
 my @columns=split(/\s+/,$line);
 $cells{$columns[4]}=$columns[0];
 }
+
+# print "Loaded " . scalar(keys %cells) . " cells from cell.txt\n";
+# print "Sample keys in \%cells: ", join(", ", (keys %cells)[0..31]), "\n";
+
 close(FH);
 
 open (FH,'<', "./data/${file_name}/links_test_${h}__pred.txt") or die $!;
@@ -62,14 +66,19 @@ $correct_key=$1;
 print "Correct key is $correct_key\n";
 }
 if ($line=~m/keyinput/ && !($line=~m/INPUT/)){
-    print "MUX-related line: $line";
+#     print "MUX-related line: $line";
 chomp $line;
 if ($line=~/^\s*(\S+)_from_mux\s*\=\s*MUX\(keyinput(\d+)\s*\,\s*(\S+)\s*\,\s*(\S+)\s*\)$/){
+# if ($line=~/^\s*(\S+)\s*=\s*MUX\s*\(\s*keyinput(\d+)\s*,\s*(\S+)\s*,\s*(\S+)\s*\)/){
 my $output=$1;
 my $key_bit=$2;
 my $path0=$3;
 my $path1=$4;
 push @{$key_bits{$key_bit}}, "$output $path0 $path1";
+
+if (!defined $cells{$path0} || !defined $cells{$output}) {
+    print "Missing in \%cells: path0=$path0 or output=$output\n";
+}
 
 }
 
@@ -81,11 +90,12 @@ my %to_check_key_bits=%key_bits;
 
 #This indicates that no key bits were parsed from the .bench file.
 my $kb_count = scalar keys %key_bits;
-print "Total key bits parsed from .bench file: $kb_count\n";
+
+# print "Total key bits parsed from .bench file: $kb_count\n";
 
 # This loop is never entered.
 foreach my $key (keys %key_bits) {
-    print "Enter foreach loop";
+    # print "Enter foreach loop";
 if(exists($to_check_key_bits{$key})){
 delete($to_check_key_bits{$key});
 }
@@ -226,16 +236,20 @@ $i++;
 print "\n";
 
 # Print out the predictions
-print "Predicted KEY = ";
-for (my $i = 0; $i < $key_size; $i++) {
-    my $pred = $dec_key_bits{$i} // "X";  # default to "X" if not predicted
-    print "$pred";
-}
-print "\n";
+# print "Predicted KEY = ";
+# for (my $i = 0; $i < $key_size; $i++) {
+#     my $pred = $dec_key_bits{$i} // "X";  # default to "X" if not predicted
+#     print "$pred";
+# }
+# print "\n";
 
 my $accuracy=$c/$key_size;
 my $prec= ($c+$un)/$key_size;
-my $kpa= $c/($key_size-$un);
+my $kpa=0;
+if ($key_size - $un !=0) {
+    my $kpa= $c/($key_size-$un);
+}
+
 print "Correct key-bits are $c, wrong key-bits are $w, and tie are $un\n";
 print "$accuracy $prec $kpa\n";
 print "Acc. $accuracy, Prec. $prec, KPA $kpa\n";

@@ -65,11 +65,15 @@ def main():
     if args.testneg_name is not None:
         args.test_dir = os.path.join(args.file_dir, './data/{}/{}'.format(args.file_name,args.testneg_name))
         testneg_idx = np.loadtxt(args.test_dir, dtype=int)
+        if testneg_idx.ndim == 1:
+            testneg_idx = testneg_idx.reshape(1, -1)
         test_neg = (testneg_idx[:, 0], testneg_idx[:, 1])
 
     if args.test_name is not None:
         args.test_dir = os.path.join(args.file_dir, './data/{}/{}'.format(args.file_name,args.test_name))
         test_idx = np.loadtxt(args.test_dir, dtype=int)
+        if test_idx.ndim == 1:
+            test_idx = test_idx.reshape(1, -1)
         test_pos = (test_idx[:, 0], test_idx[:, 1])
 
     #Build the network
