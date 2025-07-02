@@ -1,4 +1,4 @@
-./muxlink-env
-./MuxLink/data
-./pytorch_DGCNN
-./MuxLink/*.txt
+muxlink-env/
+MuxLink/data/
+pytorch_DGCNN/
+MuxLink/*.txt
