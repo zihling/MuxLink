@@ -308,7 +308,7 @@ def generate_locked_circuit(G, iso_pairs, key_bits, benchmark, location):
 # ----------------- Main Func ----------------- #
 if __name__ == "__main__":
     total_start_time = time.time()
-    G = parse(f"./MuxLink/DMUX_Locking/Benchmarks/{benchmark}.bench")
+    G = parse(f"../Benchmarks_Original/{benchmark}.bench")
     K = GenerateKey(key_size)
     strategy_list = ["S1", "S2", "S3", "S4"]
     print("Running IsoLock strategy-based isomorphism search...")

@@ -6,8 +6,7 @@ my $h=$ARGV[2];
 my $bench=$file_name;
 $bench=~s/_K.*$//g;
 my $key_size=$file_name;
-$key_size=~s/^.*_K//g;
-$key_size=~s/_ISO.*$//g;
+$key_size=~s/^.*_K(\d+)_.*$/$1/;
 my $correct_key="";
 my %connect_from_all=();
 my %connect_from=();
@@ -56,8 +55,9 @@ push @{$connect_to{$columns[1]}}, $columns[0]." ".$columns[1];
 }
 close(FH);
 
-
-
+print "This is bench name: $bench\n";
+print "The key size is $key_size\n";
+print "The file_name is $file_name\n";
 open (FH,'<', "./data/${file_name}/${bench}_K${key_size}.bench") or die $!;
 while (<FH>){
 my $line= $_;
